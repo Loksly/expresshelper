@@ -1,8 +1,8 @@
 import express = require('express');
 import request = require("supertest");
 
-import { Application, Response, Request } from "express";
-import { expresshelper } from "../../";
+import { Application, Request } from "express";
+import { expresshelper, ResponseHelper } from "../../";
 
 describe("Should work as expected (logger.trace)", () => {
     it("should logger.trace work as expected when asking for /", function (this: { router: Application }, done) {
@@ -15,7 +15,7 @@ describe("Should work as expected (logger.trace)", () => {
                 }
             }
         }));
-        this.router.get("/", (_req: Request, res: Response) => {
+        this.router.get("/", (_req: Request, res: ResponseHelper) => {
             res.locals.expresshelper.notFound();
         });
         request(this.router).get("/").expect(() => {}).end();

@@ -25,7 +25,7 @@ describe("Should work as expected", function () {
     });
     it("should NOT return not found when asking for /", function (done) {
         this.router.get("/", function (_req, res) {
-            res.locals.expresshelper.ok()();
+            res.locals.expresshelper.ok()("");
         });
         expectStatus(this.router, __1.HTTP_CODES.Ok, done, "");
     });

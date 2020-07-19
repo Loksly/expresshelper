@@ -6,27 +6,39 @@ Express helper is a plugin that saves logic when writing applications using [exp
 ### Installation
 
 ```
-npm i expresshelper
+npm i @loksly/expresshelper
 ``` 
 
 ### Usage
 
 ```typescript
-import { expresshelper } from "expresshelper";
+import { expresshelper, ResponseHelper } from "@loksly/expresshelper";
 
 /* ... */
 
+app.use(expresshelper());
+
+/* or you may customize
 app.use(expresshelper({
     logger: console,
     enableJSONP: false;
     shouldSend404onEmpty: true;
 }));
+*/
 
-app.get("/api/v1/pizzas/:id", (req, res) => {
-    if (typeof id === "string") {
+app.get("/api/v1/pizzas/:id", (req, res: ResponseHelper) => {
+    if (typeof req.params.id === "string") {
         res.locals.expresshelper.promiseWrapper(pizzas.findOne(id));
     } else {
         res.locals.expresshelper.promiseWrapper(pizzas.find(id));
+    }
+});
+
+app.put("/api/v1/pizzas/:id", (req, res) => {
+    if (typeof req.params.id === "string") {
+        res.locals.expresshelper.promiseWrapper(pizzas.findOne(id));
+    } else {
+        res.locals.expresshelper.missing
     }
 });
 
@@ -43,10 +55,6 @@ curl http://localhost:3000/pizzas/existingId # outputs a single pizza element
 ```
 
 ### API
-
-callbackErrorHelper()
-cb()
-cb
 
 - `callbackErrorHelper(err: any): void`
 - `cb(err: any, value: any): void`

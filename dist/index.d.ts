@@ -1,6 +1,11 @@
-import { RequestHandler } from "express";
-import { ExpressHelperOptions } from "./lib/helper";
+import { RequestHandler, Response } from "express";
+import { ExpressHelper, ExpressHelperOptions } from "./lib/helper";
 export * from "./lib/codes";
 export * from "./lib/helper";
-export declare function expresshelper(options: ExpressHelperOptions): RequestHandler;
+export interface ResponseHelper extends Response {
+    locals: {
+        expresshelper: ExpressHelper;
+    };
+}
+export declare function expresshelper(options?: ExpressHelperOptions): RequestHandler;
 //# sourceMappingURL=index.d.ts.map

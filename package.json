@@ -1,6 +1,6 @@
 {
-  "name": "expresshelper",
-  "version": "0.0.1",
+  "name": "@loksly/expresshelper",
+  "version": "0.0.2",
   "description": "Express Helper is set of well tested functions that helps writing express endpoints",
   "main": "./dist/index.js",
   "scripts": {
@@ -30,6 +30,6 @@
     "ts-node": "^8.10.2",
     "typescript": "^3.9.7"
   },
-  "types": "./src/lib.d.ts",
+  "types": "./dist/index.d.ts",
   "dependencies": {}
 }

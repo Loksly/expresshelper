@@ -15,8 +15,8 @@ export class ExpressHelper {
 
     constructor(private res: Response,
         private options: ExpressHelperOptions) {
-            this.options.enableJSONP = this.options.enableJSONP === true; // default is false
-            this.options.shouldSend404onEmpty = typeof this.options.shouldSend404onEmpty === "boolean" ? this.options.shouldSend404onEmpty : true; // default is true
+            this.options.enableJSONP = this.options?.enableJSONP === true; // default is false
+            this.options.shouldSend404onEmpty = typeof this.options?.shouldSend404onEmpty === "boolean" ? this.options.shouldSend404onEmpty : true; // default is true
     }
 
     public promiseWrapper(promise: Promise<any>, shouldSend404onEmpty?: boolean): void {

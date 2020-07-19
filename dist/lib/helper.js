@@ -4,10 +4,11 @@ exports.ExpressHelper = void 0;
 var codes_1 = require("./codes");
 var ExpressHelper = (function () {
     function ExpressHelper(res, options) {
+        var _a, _b;
         this.res = res;
         this.options = options;
-        this.options.enableJSONP = this.options.enableJSONP === true;
-        this.options.shouldSend404onEmpty = typeof this.options.shouldSend404onEmpty === "boolean" ? this.options.shouldSend404onEmpty : true;
+        this.options.enableJSONP = ((_a = this.options) === null || _a === void 0 ? void 0 : _a.enableJSONP) === true;
+        this.options.shouldSend404onEmpty = typeof ((_b = this.options) === null || _b === void 0 ? void 0 : _b.shouldSend404onEmpty) === "boolean" ? this.options.shouldSend404onEmpty : true;
     }
     ExpressHelper.prototype.promiseWrapper = function (promise, shouldSend404onEmpty) {
         promise.then(this.ok(shouldSend404onEmpty)).catch(this.error());

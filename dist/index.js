@@ -14,9 +14,10 @@ exports.expresshelper = void 0;
 var helper_1 = require("./lib/helper");
 __exportStar(require("./lib/codes"), exports);
 __exportStar(require("./lib/helper"), exports);
+;
 function expresshelper(options) {
     return function (_req, res, next) {
-        res.locals.expresshelper = new helper_1.ExpressHelper(res, options);
+        res.locals.expresshelper = new helper_1.ExpressHelper(res, options ? options : {});
         next();
     };
 }
