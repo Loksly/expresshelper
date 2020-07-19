@@ -1,0 +1,35 @@
+{
+  "name": "expresshelper",
+  "version": "0.0.1",
+  "description": "Express Helper is set of well tested functions that helps writing express endpoints",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "npm run tsc",
+    "coverage": "npx nyc --all --reporter=html --require ts-node/register npm run test",
+    "docs": " typedoc --out docs src/",
+    "test-e2e": "node -r source-map-support/register ./node_modules/jasmine/bin/jasmine.js --config=./src/spec/support/jasmine-e2e.json",
+    "test": "node -r source-map-support/register ./node_modules/jasmine/bin/jasmine.js --config=./src/spec/support/jasmine-e2e.json",
+    "tsc": "tsc"
+  },
+  "keywords": [
+    "expresshelper",
+    "express",
+    "typescript"
+  ],
+  "author": "Loksly",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/express": "^4.17.7",
+    "@types/jasmine": "^3.5.11",
+    "@types/supertest": "^2.0.10",
+    "express": "^4.17.1",
+    "jasmine": "^3.5.0",
+    "nyc": "^15.1.0",
+    "source-map-support": "^0.5.19",
+    "supertest": "^4.0.2",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
+  },
+  "types": "./src/lib.d.ts",
+  "dependencies": {}
+}
