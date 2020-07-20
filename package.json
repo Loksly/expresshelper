@@ -1,6 +1,6 @@
 {
   "name": "@loksly/expresshelper",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Express Helper is set of well tested functions that helps writing express endpoints",
   "main": "./dist/index.js",
   "scripts": {

@@ -11,9 +11,7 @@ function expectStatus(router: Application, code: number, done: Function, content
             expect(res.body).toEqual(content);
         }
         done();
-    }).end((err) => {
-        if (err) throw err;
-    });
+    }).end(() => {});
 }
 
 describe("Should work as expected", () => {
@@ -32,3 +30,18 @@ describe("Should work as expected", () => {
         expectStatus(this.router, HTTP_CODES.Ok, done, "");
     });
 });
+
+describe("Should work as expected for default values", () => {
+    beforeEach(function (this: { router: Application }) {
+        this.router = express();
+        this.router.use(expresshelper());
+    });
+
+    it("should return not found when asking for /", function (this: { router: Application }, done) {
+        this.router.get("/", (_req: Request, res: ResponseHelper) => {
+            res.locals.expresshelper.ok()("");
+        });
+        expectStatus(this.router, HTTP_CODES.NotFoundError, done);
+    });
+});
+

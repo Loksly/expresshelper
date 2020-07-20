@@ -13,7 +13,7 @@ export declare class ExpressHelper {
     constructor(res: Response, options: ExpressHelperOptions);
     promiseWrapper(promise: Promise<any>, shouldSend404onEmpty?: boolean): void;
     cbWithDefaultValue(defaultvalue: any): (e: any) => void;
-    cb(): (e: any, value: any) => void;
+    cb(): (err: any, value?: any) => void;
     error(errCode?: number | string, defaultMessage?: string): (err: any) => void;
     send(content: any, statusCode?: number): void;
     ok(shouldSend404onEmpty?: boolean): (data: any) => void;
@@ -25,5 +25,6 @@ export declare class ExpressHelper {
     callbackError(err: any): void;
     missingParameter(parametername: string): void;
     notImplemented(): void;
+    private trace;
 }
 //# sourceMappingURL=helper.d.ts.map

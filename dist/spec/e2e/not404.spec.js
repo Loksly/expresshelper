@@ -10,10 +10,7 @@ function expectStatus(router, code, done, content) {
             expect(res.body).toEqual(content);
         }
         done();
-    }).end(function (err) {
-        if (err)
-            throw err;
-    });
+    }).end(function () { });
 }
 describe("Should work as expected", function () {
     beforeEach(function () {
@@ -28,6 +25,18 @@ describe("Should work as expected", function () {
             res.locals.expresshelper.ok()("");
         });
         expectStatus(this.router, __1.HTTP_CODES.Ok, done, "");
+    });
+});
+describe("Should work as expected for default values", function () {
+    beforeEach(function () {
+        this.router = express();
+        this.router.use(__1.expresshelper());
+    });
+    it("should return not found when asking for /", function (done) {
+        this.router.get("/", function (_req, res) {
+            res.locals.expresshelper.ok()("");
+        });
+        expectStatus(this.router, __1.HTTP_CODES.NotFoundError, done);
     });
 });
 //# sourceMappingURL=not404.spec.js.map

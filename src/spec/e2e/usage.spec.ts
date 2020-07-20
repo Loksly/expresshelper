@@ -11,9 +11,7 @@ function expectStatus(router: Application, code: number, done: Function, content
             expect(res.body).toEqual(content);
         }
         done();
-    }).end((err) => {
-        if (err) throw err;
-    });
+    }).end(() => {});
 }
 
 describe("Should work as expected", () => {
@@ -156,5 +154,21 @@ describe("Should work as expected", () => {
             res.locals.expresshelper.callbackError(cb());
         });
         expectStatus(this.router, HTTP_CODES.InternalError, done, {"error": "An error has occurred", "details": { "err": "my error"}});
+    });
+
+    it("should work for error functions when asking for /", function (this: { router: Application }, done) {
+        const err = { "err": "my error"};
+        this.router.get("/", (_req: Request, res: ResponseHelper) => {
+            res.locals.expresshelper.error(HTTP_CODES.ImATeapotError, "My error")(err);
+        });
+        expectStatus(this.router, HTTP_CODES.ImATeapotError, done, {"error": "My error", "details": err});
+    });
+
+    it("should work for error functions when asking for /", function (this: { router: Application }, done) {
+        const err = { "err": "my error"};
+        this.router.get("/", (_req: Request, res: ResponseHelper) => {
+            res.locals.expresshelper.error("My error")(err);
+        });
+        expectStatus(this.router, HTTP_CODES.InternalError, done, {"error": "My error", "details": err});
     });
 });

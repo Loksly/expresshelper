@@ -10,10 +10,7 @@ function expectStatus(router, code, done, content) {
             expect(res.body).toEqual(content);
         }
         done();
-    }).end(function (err) {
-        if (err)
-            throw err;
-    });
+    }).end(function () { });
 }
 describe("Should work as expected", function () {
     beforeEach(function () {
@@ -135,6 +132,20 @@ describe("Should work as expected", function () {
             res.locals.expresshelper.callbackError(cb());
         });
         expectStatus(this.router, __1.HTTP_CODES.InternalError, done, { "error": "An error has occurred", "details": { "err": "my error" } });
+    });
+    it("should work for error functions when asking for /", function (done) {
+        var err = { "err": "my error" };
+        this.router.get("/", function (_req, res) {
+            res.locals.expresshelper.error(__1.HTTP_CODES.ImATeapotError, "My error")(err);
+        });
+        expectStatus(this.router, __1.HTTP_CODES.ImATeapotError, done, { "error": "My error", "details": err });
+    });
+    it("should work for error functions when asking for /", function (done) {
+        var err = { "err": "my error" };
+        this.router.get("/", function (_req, res) {
+            res.locals.expresshelper.error("My error")(err);
+        });
+        expectStatus(this.router, __1.HTTP_CODES.InternalError, done, { "error": "My error", "details": err });
     });
 });
 //# sourceMappingURL=usage.spec.js.map

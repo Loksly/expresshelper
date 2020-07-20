@@ -4,22 +4,20 @@ exports.ExpressHelper = void 0;
 var codes_1 = require("./codes");
 var ExpressHelper = (function () {
     function ExpressHelper(res, options) {
-        var _a, _b;
         this.res = res;
         this.options = options;
-        this.options.enableJSONP = ((_a = this.options) === null || _a === void 0 ? void 0 : _a.enableJSONP) === true;
-        this.options.shouldSend404onEmpty = typeof ((_b = this.options) === null || _b === void 0 ? void 0 : _b.shouldSend404onEmpty) === "boolean" ? this.options.shouldSend404onEmpty : true;
+        this.options.enableJSONP = this.options.enableJSONP === true;
+        this.options.shouldSend404onEmpty = typeof this.options.shouldSend404onEmpty === "boolean" ? this.options.shouldSend404onEmpty : true;
     }
     ExpressHelper.prototype.promiseWrapper = function (promise, shouldSend404onEmpty) {
         promise.then(this.ok(shouldSend404onEmpty)).catch(this.error());
     };
     ExpressHelper.prototype.cbWithDefaultValue = function (defaultvalue) {
         var _this = this;
-        return function (e) {
-            var _a;
-            if (e) {
-                _this.send(e, codes_1.HTTP_CODES.InternalError);
-                (_a = _this.options.logger) === null || _a === void 0 ? void 0 : _a.trace(JSON.stringify(e));
+        return function (err) {
+            if (err) {
+                _this.send(err, codes_1.HTTP_CODES.InternalError);
+                _this.trace(err);
             }
             else {
                 _this.send(defaultvalue);
@@ -28,11 +26,10 @@ var ExpressHelper = (function () {
     };
     ExpressHelper.prototype.cb = function () {
         var _this = this;
-        return function (e, value) {
-            var _a;
-            if (e) {
-                _this.send(e, codes_1.HTTP_CODES.InternalError);
-                (_a = _this.options.logger) === null || _a === void 0 ? void 0 : _a.trace(JSON.stringify(e));
+        return function (err, value) {
+            if (err) {
+                _this.send(err, codes_1.HTTP_CODES.InternalError);
+                _this.trace(err);
             }
             else {
                 _this.send(value);
@@ -42,7 +39,6 @@ var ExpressHelper = (function () {
     ExpressHelper.prototype.error = function (errCode, defaultMessage) {
         var _this = this;
         return function (err) {
-            var _a, _b;
             var message = "", errorCode = codes_1.HTTP_CODES.InternalServerError;
             if (!defaultMessage && typeof errCode === "string") {
                 message = errCode;
@@ -56,13 +52,8 @@ var ExpressHelper = (function () {
             if (typeof errCode === "number") {
                 errorCode = errCode;
             }
-            try {
-                (_a = _this.options.logger) === null || _a === void 0 ? void 0 : _a.trace(JSON.stringify(err));
-            }
-            catch (e) {
-                (_b = _this.options.logger) === null || _b === void 0 ? void 0 : _b.trace(err);
-            }
             _this.send({ "error": message, "details": err }, errorCode);
+            _this.trace(err);
         };
     };
     ExpressHelper.prototype.send = function (content, statusCode) {
@@ -102,9 +93,8 @@ var ExpressHelper = (function () {
         };
     };
     ExpressHelper.prototype.notFound = function () {
-        var _a;
         this.send({ "error": "An error has occurred", "details": "Not found" }, codes_1.HTTP_CODES.NotFoundError);
-        (_a = this.options.logger) === null || _a === void 0 ? void 0 : _a.trace("Not found");
+        this.trace("Not found");
     };
     ExpressHelper.prototype.unauthenticated = function (details) {
         this.send({ "error": "Unauthenticated", "details": details }, codes_1.HTTP_CODES.UnauthorizedError);
@@ -116,15 +106,18 @@ var ExpressHelper = (function () {
         this.forbidden(details);
     };
     ExpressHelper.prototype.callbackError = function (err) {
-        var _a;
         this.send({ "error": "An error has occurred", "details": err }, codes_1.HTTP_CODES.InternalServerError);
-        (_a = this.options.logger) === null || _a === void 0 ? void 0 : _a.trace(JSON.stringify(err));
+        this.trace(err);
     };
     ExpressHelper.prototype.missingParameter = function (parametername) {
         this.send({ "error": "Missing parameter", "details": parametername }, codes_1.HTTP_CODES.BadRequestError);
     };
     ExpressHelper.prototype.notImplemented = function () {
         this.send({ "error": "Not implemented" }, codes_1.HTTP_CODES.NotImplementedError);
+    };
+    ExpressHelper.prototype.trace = function (err) {
+        var _a;
+        (_a = this.options.logger) === null || _a === void 0 ? void 0 : _a.trace(JSON.stringify(err));
     };
     return ExpressHelper;
 }());

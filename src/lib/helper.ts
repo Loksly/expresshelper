@@ -15,8 +15,8 @@ export class ExpressHelper {
 
     constructor(private res: Response,
         private options: ExpressHelperOptions) {
-            this.options.enableJSONP = this.options?.enableJSONP === true; // default is false
-            this.options.shouldSend404onEmpty = typeof this.options?.shouldSend404onEmpty === "boolean" ? this.options.shouldSend404onEmpty : true; // default is true
+        this.options.enableJSONP = this.options.enableJSONP === true; // default is false
+        this.options.shouldSend404onEmpty = typeof this.options.shouldSend404onEmpty === "boolean" ? this.options.shouldSend404onEmpty : true; // default is true
     }
 
     public promiseWrapper(promise: Promise<any>, shouldSend404onEmpty?: boolean): void {
@@ -25,29 +25,29 @@ export class ExpressHelper {
 
     public cbWithDefaultValue(defaultvalue: any): (e: any) => void {
 
-        return (e: any) => {
-            if (e) {
-                this.send(e, HTTP_CODES.InternalError);
-                this.options.logger?.trace(JSON.stringify(e));
+        return (err: any) => {
+            if (err) {
+                this.send(err, HTTP_CODES.InternalError);
+                this.trace(err);
             } else {
                 this.send(defaultvalue);
             }
         }
     }
 
-    public cb(): (e: any, value: any) => void {
+    public cb(): (err: any, value?: any) => void {
 
-        return (e: any, value: any) => {
-            if (e) {
-                this.send(e, HTTP_CODES.InternalError);
-                this.options.logger?.trace(JSON.stringify(e));
+        return (err: any, value: any) => {
+            if (err) {
+                this.send(err, HTTP_CODES.InternalError);
+                this.trace(err);
             } else {
                 this.send(value);
             }
         }
     }
 
-    public error(errCode?: number|string, defaultMessage?: string): (err: any) => void {
+    public error(errCode?: number | string, defaultMessage?: string): (err: any) => void {
 
         return (err: any) => {
             let message = "",
@@ -64,13 +64,8 @@ export class ExpressHelper {
                 errorCode = errCode;
             }
 
-            try {
-                this.options.logger?.trace(JSON.stringify(err));
-            } catch(e) {
-                this.options.logger?.trace(err);
-            }
-
             this.send({ "error": message, "details": err }, errorCode);
+            this.trace(err);
         }
     }
 
@@ -111,8 +106,8 @@ export class ExpressHelper {
     }
 
     public notFound(): void {
-        this.send({ "error": "An error has occurred", "details": "Not found" }, HTTP_CODES.NotFoundError); 
-        this.options.logger?.trace("Not found");
+        this.send({ "error": "An error has occurred", "details": "Not found" }, HTTP_CODES.NotFoundError);
+        this.trace("Not found");
     }
 
     public unauthenticated(details: any): void {
@@ -129,7 +124,7 @@ export class ExpressHelper {
 
     public callbackError(err: any): void {
         this.send({ "error": "An error has occurred", "details": err }, HTTP_CODES.InternalServerError);
-        this.options.logger?.trace(JSON.stringify(err));
+        this.trace(err);
     }
 
     public missingParameter(parametername: string): void {
@@ -138,5 +133,9 @@ export class ExpressHelper {
 
     public notImplemented(): void {
         this.send({ "error": "Not implemented" }, HTTP_CODES.NotImplementedError);
+    }
+
+    private trace(err: any): void {
+        this.options.logger?.trace(JSON.stringify(err));
     }
 }
