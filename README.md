@@ -1,6 +1,13 @@
 
 ## Express Helper
 
+[![codecov](https://codecov.io/gh/Loksly/expresshelper/branch/master/graph/badge.svg)](https://codecov.io/gh/Loksly/expresshelper)
+[![Known Vulnerabilities](https://snyk.io/test/github/loksly/expresshelper/badge.svg)](https://snyk.io/test/github/loksly/expresshelper)
+[![HitCount](https://hits.dwyl.com/loksly/expresshelper.svg)](https://hits.dwyl.com/loksly/expresshelper)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/loksly/expresshelper/issues)
+[![https://nodei.co/npm/@loksly/expresshelper.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/@loksly/expresshelper.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/@loksly/expresshelper)
+
+
 Express helper is a plugin that saves logic when writing applications using [express](https://expressjs.com/).
 
 ### Installation
