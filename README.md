@@ -45,7 +45,7 @@ app.put("/api/v1/pizzas/:id", (req, res) => {
     if (typeof req.params.id === "string") {
         res.locals.expresshelper.promiseWrapper(pizzas.findOne(id));
     } else {
-        res.locals.expresshelper.missing
+        res.locals.expresshelper.missingParameter("id");
     }
 });
 
@@ -77,3 +77,5 @@ curl http://localhost:3000/pizzas/existingId # outputs a single pizza element
 - `send(content: any, statusCode?: undefined | number): void`
 - `unauthenticatedHelper(details: any): void`
 - `unauthorizedHelper(details: any): void`
+
+For examples of usage you should check the [tests](./src/spec/e2e/usage.spec.ts).
