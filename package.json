@@ -1,6 +1,6 @@
 {
   "name": "@loksly/expresshelper",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Express Helper is set of well tested functions that helps writing express endpoints",
   "main": "./dist/index.js",
   "scripts": {
@@ -32,5 +32,11 @@
     "typescript": "^3.9.7"
   },
   "types": "./dist/index.d.ts",
-  "dependencies": {}
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/loksly/expresshelper.git"
+  },
+  "homepage": "https://github.com/loksly/expresshelper",
+  "bugs": "https://github.com/loksly/expresshelper/issues"
 }

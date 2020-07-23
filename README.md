@@ -57,8 +57,9 @@ Now you can the expected output for your application is:
 
 ```
 curl http://localhost:3000/pizzas # outputs the whole list of pizzas
-curl http://localhost:3000/pizzas/nonexistingId # outputs 404 status code (not found error)
+curl http://localhost:3000/pizzas/nonexistingId # outputs 404 status code (not found error), body `{ "error": "An error has occurred", "details": "Not found" }`
 curl http://localhost:3000/pizzas/existingId # outputs a single pizza element
+curl -X PUT http://localhost:3000/pizzas/ # outputs 400 status code (Bad Request Error), body: `{ "error": "Missing parameter", "details": "id" }`
 ```
 
 ### API
