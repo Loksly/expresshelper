@@ -1,0 +1,25 @@
+{
+  "extends": "@istanbuljs/schema",
+  "all": true,
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "src/spec/**",
+    "src/**/*.d.ts"
+  ],
+  "reporter": [
+    "text",
+    "html",
+    "lcov"
+  ],
+  "require": [
+    "ts-node/register",
+    "source-map-support/register"
+  ],
+  "extension": [
+    ".ts"
+  ],
+  "sourceMap": true,
+  "instrument": true
+}

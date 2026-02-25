@@ -7,7 +7,7 @@ export * from "./lib/helper";
 export interface ResponseHelper extends Response {
     locals: {
         expresshelper: ExpressHelper;
-    };
+    } & Record<string, any>;
 };
 
 export function expresshelper(options?: ExpressHelperOptions): RequestHandler {

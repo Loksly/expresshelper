@@ -57,5 +57,5 @@ var HTTP_CODES;
     HTTP_CODES[HTTP_CODES["RequestThrottledError"] = 429] = "RequestThrottledError";
     HTTP_CODES[HTTP_CODES["ResourceNotFoundError"] = 404] = "ResourceNotFoundError";
     HTTP_CODES[HTTP_CODES["WrongAcceptError"] = 406] = "WrongAcceptError";
-})(HTTP_CODES = exports.HTTP_CODES || (exports.HTTP_CODES = {}));
+})(HTTP_CODES || (exports.HTTP_CODES = HTTP_CODES = {}));
 //# sourceMappingURL=codes.js.map
