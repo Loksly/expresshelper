@@ -1,14 +1,13 @@
 {
   "name": "@loksly/expresshelper",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Express Helper is set of well tested functions that helps writing express endpoints",
   "main": "./dist/index.js",
   "scripts": {
     "build": "npm run tsc",
-    "coverage": "npx nyc --all --reporter=html --require ts-node/register npm run test",
-    "coverage-json": "npx nyc --all --reporter=json --require ts-node/register npm run test",
-    "docs": " typedoc --out docs src/",
-    "test-e2e": "node -r source-map-support/register ./node_modules/jasmine/bin/jasmine.js --config=./src/spec/support/jasmine-e2e.json",
+    "coverage": "nyc node --no-experimental-strip-types -r ts-node/register node_modules/jasmine/bin/jasmine.js --config=./src/spec/support/jasmine-ts.json",
+    "coverage-json": "nyc --reporter=json node --no-experimental-strip-types -r ts-node/register node_modules/jasmine/bin/jasmine.js --config=./src/spec/support/jasmine-ts.json",
+    "docs": "typedoc --out docs src/",
     "test": "node -r source-map-support/register ./node_modules/jasmine/bin/jasmine.js --config=./src/spec/support/jasmine-e2e.json",
     "tsc": "tsc"
   },
@@ -20,23 +19,24 @@
   "author": "Loksly",
   "license": "MIT",
   "devDependencies": {
-    "@types/express": "^4.17.7",
-    "@types/jasmine": "^3.5.11",
-    "@types/supertest": "^2.0.10",
-    "express": "^4.17.1",
-    "jasmine": "^3.5.0",
-    "nyc": "^15.1.0",
-    "source-map-support": "^0.5.19",
-    "supertest": "^4.0.2",
-    "ts-node": "^8.10.2",
-    "typescript": "^3.9.7"
+    "@types/express": "^5.0.6",
+    "@types/jasmine": "^6.0.0",
+    "@types/node": "^25.3.0",
+    "@types/supertest": "^6.0.3",
+    "express": "^5.2.1",
+    "jasmine": "^6.1.0",
+    "nyc": "^17.1.0",
+    "source-map-support": "^0.5.21",
+    "supertest": "^7.2.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   },
   "types": "./dist/index.d.ts",
-  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/loksly/expresshelper.git"
   },
   "homepage": "https://github.com/loksly/expresshelper",
-  "bugs": "https://github.com/loksly/expresshelper/issues"
+  "bugs": "https://github.com/loksly/expresshelper/issues",
+  "dependencies": {}
 }
